@@ -1,16 +1,20 @@
 package com.cos.security1.controller;
 
+import com.cos.security1.auth.PrincipalDetails;
 import com.cos.security1.model.User;
 import com.cos.security1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+// Session > security session > Authentication > UserDetails(일반로그인) / OAuth2User(OAuth로그인)
 @Controller
 @RequiredArgsConstructor
 
@@ -25,7 +29,8 @@ public class IndexController {
     }
 
     @GetMapping("/user")
-    public @ResponseBody String user(){
+    public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails){ // Service에서 loadUser 끝나면 AuthenticationPrincipal 생성
+        // 일반 로그인 & OAuth 로그인 둘 다 가능
         return "user";
     }
 

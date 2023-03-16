@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class PrincipalDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
+    // 함수 종료시 @AuthenticationPrincipal 어노테이션이 만들어진다
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // 파라미터 이름 username은 loginForm의 username과 일치해야함. 만약 다를 경우 config에 추가 설정해줘야함
         User user = userRepository.findByUsername(username);
